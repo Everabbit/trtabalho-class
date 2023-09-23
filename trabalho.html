@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turmas</title>
+</head>
+<body>
+
+<div id="output"></div>
+
+<script>
+
+class Pessoa {
+    constructor(cpf, nome) {
+        this.cpf = cpf;
+        this.nome = nome;
+    }
+}
+
+class Professor extends Pessoa {
+    constructor(cpf, nome, area, telefone) {
+        super(cpf, nome);
+        this.area = area;
+        this.telefone = telefone;
+    }
+}
+
+class Aluno extends Pessoa {
+    constructor(cpf, nome, matricula) {
+        super(cpf, nome);
+        this.matricula = matricula;
+    }
+}
+
+class Turma {
+    constructor(professor, alunos, identificacao) {
+        this.professor = professor;
+        this.alunos = alunos;
+        this.identificacao = identificacao;
+    }
+
+    imprimeDados() {
+        let outputDiv = document.getElementById("output");
+        let turmaInfo = document.createElement("div");
+
+        turmaInfo.innerHTML = `
+            <p>Turma: ${this.identificacao}</p>
+            <p>Professor: ${this.professor.nome}, Área: ${this.professor.area}, Telefone: ${this.professor.telefone}</p>
+            <p>Alunos:</p>
+        `;
+
+        this.alunos.forEach(aluno => {
+            turmaInfo.innerHTML += `<p>Nome: ${aluno.nome}, Matrícula: ${aluno.matricula}</p>`;
+        });
+
+        outputDiv.appendChild(turmaInfo);
+    }
+}
+
+// Criar 2 objetos professores
+const professor1 = new Professor("12345678901", "João Silva", "Matemática", "123-456-7890");
+const professor2 = new Professor("98765432101", "Maria Souza", "História", "987-654-3210");
+
+// Criar 6 objetos alunos
+const aluno1 = new Aluno("11111111111", "Lucas Oliveira", "A001");
+const aluno2 = new Aluno("22222222222", "Ana Santos", "A002");
+const aluno3 = new Aluno("33333333333", "Pedro Almeida", "A003");
+const aluno4 = new Aluno("44444444444", "Camila Pereira", "A004");
+const aluno5 = new Aluno("55555555555", "Mariana Fernandes", "A005");
+const aluno6 = new Aluno("66666666666", "Gustavo Costa", "A006");
+
+// Criar 2 objetos turmas de 4 alunos
+const turma1 = new Turma(professor1, [aluno1, aluno2, aluno3, aluno4], "Turma de Matemática");
+const turma2 = new Turma(professor2, [aluno1, aluno5, aluno6], "Turma de História");
+
+// Chamar o método imprimeDados das duas turmas
+turma1.imprimeDados();
+turma2.imprimeDados();
+
+</script>
+
+</body>
+</html>
